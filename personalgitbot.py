@@ -58,7 +58,7 @@ def update_admin(message, msg, ip):
     conn.commit()
     conn.close()
 
-
+#confirm the user to access with the given ip
 def confirm_ip(ip_one):
     conn = sqlite3.connect('telegram_bot.sqlite')
     cur_user_id = conn.cursor()
@@ -82,7 +82,7 @@ def confirm_ip(ip_one):
     conn.commit()
     conn.close()
 
-
+#reject the user to access with the given ip
 def deny_ip(ip_one):
     conn = sqlite3.connect('telegram_bot.sqlite')
     cur_user_id = conn.cursor()
@@ -112,7 +112,7 @@ def deny_ip(ip_one):
 
 
 
-bot = telebot.TeleBot('1097568744:AAGZg5uHIS_zmVJEtNHZxkyg6YnWEkJhriM')
+bot = telebot.TeleBot('Your token')
 ip_list=['''''']
 # Start bot
 
@@ -142,7 +142,7 @@ def show_menu_two(message):
     markup2.add(item1, item2, item3, item4)
     bot.send_message(msg.chat.id, text="Choose one of the options", reply_markup=markup2)
 
-
+#Selecting the vault option
 @bot.message_handler(func=lambda msg: msg.text is not None and 'Vault' in msg.text)
 def send_welcome(msg):
     markup2 = types.ReplyKeyboardRemove(selective=False)
@@ -154,12 +154,12 @@ def send_welcome(msg):
     sub_markup.add(item4, item5, item6)
     bot.send_message(msg.chat.id, text="How can I help you?", reply_markup=sub_markup)
 
-
+#selecting the Help option
 @bot.message_handler(func=lambda msg: msg.text is not None and 'Help' in msg.text)
 def help(message):
     msg = bot.reply_to(message, "Hello,This is a check ip bot,For further actions please choose IP")
 
-
+#selecting the Info option
 @bot.message_handler(func=lambda msg: msg.text is not None and 'Info' in msg.text)
 def info(message):
     msg = bot.reply_to(message, message.from_user.id)
@@ -173,14 +173,14 @@ def ip(message):
     msg = bot.reply_to(message, """Please enter your ip""", reply_markup=sub_markup)
     bot.register_next_step_handler(msg, check_ip_process)
 
-
+#Send the given ip to Admin
 def check_ip_process(message):
     ip = message.text
     logging.basicConfig(format='%(asctime)s', level=logging.INFO)
     logging.info(message.from_user.username + " Requests a confirmation on ip: "+ message.text)
     for i in ip_list:
         if i == ip:
-            bot.forward_message(324720442, message.from_user.id, message.message_id)
+            bot.forward_message(chat.id, message.from_user.id, message.message_id)
             msg = bot.reply_to(message, "Wait for Confirmation")
             update_user(message, msg, ip)
             return
@@ -200,7 +200,7 @@ def admin(message):
     sub_two_markup.add(item7, item8)
     msg = bot.reply_to(message, text="Is the ip correct?", reply_markup=sub_two_markup)
 
-
+#Admin Gives access
 @bot.message_handler(func=lambda msg: msg.text is not None and 'yes' in msg.text)
 def authentication_y(message):
     sub_two_markup = types.ReplyKeyboardRemove(selective=False)
@@ -214,7 +214,7 @@ def authentication_yes(message):
     update_admin(message, msg, ip)
     confirm_ip(ip)
 
-
+#Admin Does not give the access
 @bot.message_handler(func=lambda msg: msg.text is not None and 'No' in msg.text)
 def authentication_n(message):
     sub_two_markup = types.ReplyKeyboardRemove(selective=False)
