@@ -117,7 +117,7 @@ def select_password_admin(message):
         msg = bot.send_message(message, "authentication error as admin")
 
 
-bot = telebot.TeleBot('1222074864:AAGUAxaCEyjwPzrhVI3EARM3jXKBswW2Azw')
+bot = telebot.TeleBot('bot_token')
 # Start bot
 
 
