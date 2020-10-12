@@ -1,19 +1,19 @@
-"""import ldap
+import ldap
 
 con = ldap.initialize('ldap://127.0.0.1')
 base_dn = "dc=iais, dc=com"
 con.protocol_version = ldap.VERSION3
 con.set_option(ldap.OPT_REFERRALS, 0)
-con.simple_bind_s('m.rostampoor', 'Mb530774')
+con.simple_bind_s('username', 'password')
 search_filter = "(uid=m.rostampoor)"
 result = con.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter, None)
 user_dn = result[0][0]  # get the user DN
-con.simple_bind_s(user_dn, "Mb530774")
+con.simple_bind_s(user_dn, "password")
 
 if __name__ == "__main__":
     ldap_server = "ldap://127.0.0.1/"
     username = "mahdis rostampoor"
-    password = "Mb530774"
+    password = "password"
     # the following is the user_dn format provided by the ldap server
     user_dn = "cn=" + username + ",ou=users,dc=iais,dc=com"
     # adjust this to your base dn for searching
@@ -48,7 +48,6 @@ try:
     results
 finally:
     l.unbind()
-"""
 
 import sys
 import ldap
